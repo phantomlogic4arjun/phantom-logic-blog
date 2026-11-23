@@ -369,4 +369,5 @@ For now, Phantom Logic is a work in progress.
 There is a lot left to learn and build.
 
 Whatever these systems become in the future, I believe human judgment, direction, and responsibility must remain at the centre. The goal isn't to replace the human element, but to build systems where people and agents work together.
+
 **Humans Guide. Agents Execute.**
