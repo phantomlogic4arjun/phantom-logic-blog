@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Phantom Logic: Exploring Agentic Systems"
+title: "Getting Started with Agentic Systems"
 date: 2026-11-23
 categories:
   - Engineering
@@ -18,9 +18,7 @@ tags:
   - Multi-Agent Systems
 ---
 
-# Phantom Logic
-
-### Humans Guide. Agents Execute.
+## Humans Guide. Agents Execute.
 
 This is an experiment in building agentic systems and exploring how multiple autonomous agents can work together under human guidance.
 
