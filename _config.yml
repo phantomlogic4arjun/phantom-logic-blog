@@ -1,0 +1,10 @@
+
+title: Phantom Logic
+description: Building the future of autonomous software engineering.
+url: "https://phantomlogic4arjun.github.io"
+baseurl: "/phantom-logic-blog"
+
+theme: minima
+
+plugins:
+  - jekyll-feed
