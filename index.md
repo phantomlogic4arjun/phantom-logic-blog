@@ -18,7 +18,7 @@ tags:
   - Multi-Agent Systems
 ---
 
-## Humans Guide. Agents Execute.
+### Humans Guide. Agents Execute.
 
 This is an experiment in building agentic systems and exploring how multiple autonomous agents can work together under human guidance.
 
@@ -26,7 +26,7 @@ I'm a beginner in this space, learning as I build, experimenting with different 
 
 This is where I document that journey: what I'm building, why I'm making certain decisions, what works, and what doesn't.
 
-## What am I trying to build?
+### What am I trying to build?
 
 Most of us are familiar with using assistants to answer questions, generate content, or help with individual tasks.
 
@@ -52,13 +52,13 @@ Humans provide direction, make important decisions, grant approvals where requir
 
 I'm interested in exploring how far this approach can go while keeping the system understandable, accountable, and manageable.
 
-## How Phantom Logic is taking shape
+### How Phantom Logic is taking shape
 
 I'm approaching this as a collection of connected modules rather than trying to build everything at once.
 
 Here are the main components I've been working on.
 
-### 1. Agent Architecture and Orchestration
+#### 1. Agent Architecture and Orchestration
 
 The first challenge is defining the different roles within the system.
 
@@ -78,7 +78,7 @@ The Orchestrator is particularly important because it acts as the coordination p
 
 I'm also working on defining the boundaries between agents so that responsibilities don't overlap unnecessarily.
 
-### 2. Work Item Management
+#### 2. Work Item Management
 
 One of the first things I realized was that agents need a common way to understand and manage the work they're expected to perform.
 
@@ -112,7 +112,7 @@ I didn't want the agents to depend entirely on an external work management inter
 
 These are complementary parts of the design: GitHub provides work organization and tracking capabilities, while Phantom Logic implements the application-side functionality required for agent workflows.
 
-### 3. Audit and Governance
+#### 3. Audit and Governance
 
 This is one of the areas I consider particularly important.
 
@@ -141,7 +141,7 @@ This is intended to make accountability consistent across the system.
 
 I also want human approval to remain part of the process wherever an action requires it. An agent should not treat its ability to perform an action as permission to do so.
 
-### 4. Database and Data Management
+#### 4. Database and Data Management
 
 As the system grows, it needs a reliable way to store and retrieve information.
 
@@ -153,7 +153,7 @@ The database layer provides the foundation for storing work items and their rela
 
 I'm also working toward keeping the different application layers separate so that business logic, database operations, and agent-facing interfaces don't become unnecessarily dependent on one another.
 
-### 5. Model Infrastructure: Ollama and OpenRouter
+#### 5. Model Infrastructure: Ollama and OpenRouter
 
 An important part of this experiment is understanding which models to use, where to run them, and how different agents can benefit from different models.
 
@@ -203,7 +203,7 @@ I haven't finalized the model allocation strategy yet. I'm still experimenting w
 
 I see this as an important architectural decision because the choice of model can affect the cost, speed, reliability, and overall capabilities of the system.
 
-### 6. OpenCode Integration
+#### 6. OpenCode Integration
 
 Another important part of the project is connecting the agent environment to the Python application.
 
@@ -221,7 +221,7 @@ After correcting the interpreter path and restarting OpenCode, the integration w
 
 It was a relatively small issue, but a useful reminder that even when the architecture looks right, the actual integration details matter.
 
-### 7. Repository and Engineering Practices
+#### 7. Repository and Engineering Practices
 
 I've been spending time organizing the project itself. Python isn't my primary language, so I'm still getting familiar with its conventions and best practices. At the same time, I'm learning how agentic systems are structured and how their different components fit together. It's been a learning experience on both the technology and architectural sides.
 
@@ -231,7 +231,7 @@ The repository contains the application code, agent instructions, company-level 
 
 The intention is to make Phantom Logic easier to understand, maintain, and extend as it evolves.
 
-## The technology stack
+### The technology stack
 
 These are the main technologies I'm currently using and exploring.
 
@@ -255,7 +255,7 @@ These are the main technologies I'm currently using and exploring.
 
 The stack may evolve as the project grows. I'm more interested in getting the architecture and responsibilities right than committing to a particular technology for everything.
 
-## A small but important milestone
+### A small but important milestone
 
 One of the first things I wanted to verify was whether an agent could create a work item and whether that action would be recorded in the central audit log.
 
@@ -284,13 +284,13 @@ It is only one part of the larger system. The complete development workflow, inc
 
 But having one integration path working end to end is encouraging.
 
-## What's next?
+### What's next?
 
 There is a long way to go. I don't want to rush into building more agents before the existing foundations are reliable.
 
 Here is how I see the next stages.
 
-### Phase 1: Complete Work Item Management
+#### Phase 1: Complete Work Item Management
 
 The immediate focus is to verify that agents can retrieve, update, assign, and transition work items through the approved interfaces.
 
@@ -298,7 +298,7 @@ Every significant operation should be reported and audited appropriately.
 
 I also want to make sure that the Work Item definitions, application-side implementation, and agent instructions remain consistent.
 
-### Phase 2: Establish the Complete Development Workflow
+#### Phase 2: Establish the Complete Development Workflow
 
 I want to move beyond creating features and establish a complete workflow:
 
@@ -310,7 +310,7 @@ I want to move beyond creating features and establish a complete workflow:
 
 The workflow should also handle failures, rework, and situations where human intervention is necessary.
 
-### Phase 3: Introduce Independent Review and Quality Assurance
+#### Phase 3: Introduce Independent Review and Quality Assurance
 
 I don't want the same agent that produces work to be the only one deciding whether that work is correct.
 
@@ -318,7 +318,7 @@ Independent review and testing should be part of the process.
 
 The goal is to make quality checks a normal part of development rather than an afterthought.
 
-### Phase 4: Build Product Management Infrastructure
+#### Phase 4: Build Product Management Infrastructure
 
 Eventually, I want Phantom Logic to manage multiple products and projects.
 
@@ -326,7 +326,7 @@ That will require a way to maintain product information, requirements, developme
 
 Each product should have its own development repository while Phantom Logic provides the coordination and management infrastructure.
 
-### Phase 5: Expand Local Model Usage
+#### Phase 5: Expand Local Model Usage
 
 I want to experiment with running more of the system locally.
 
@@ -336,7 +336,7 @@ The longer-term goal is to reduce unnecessary dependence on cloud services witho
 
 Cloud models will still have a place when their capabilities justify using them.
 
-### Phase 6: Workflow Automation
+#### Phase 6: Workflow Automation
 
 Once the individual components are reliable, I want to explore more complex workflows.
 
@@ -344,13 +344,13 @@ Agents should be able to identify the next appropriate action, coordinate with o
 
 Human approval and intervention will remain important boundaries.
 
-### Phase 7: Release and Operations
+#### Phase 7: Release and Operations
 
 The longer-term goal is to explore how agents can assist with the entire product lifecycle, from initial ideas through development, testing, release, and ongoing maintenance.
 
 This is still a future direction, not something I've implemented yet.
 
-## Why I'm documenting all this
+### Why I'm documenting all this
 
 I'm not writing this as someone who has already figured everything out.
 
