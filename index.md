@@ -1,473 +1,386 @@
 ---
 layout: post
-title: "Building Phantom Logic: Engineering an Autonomous AI Software Company"
+title: "Phantom Logic: Exploring Agentic Systems"
 date: 2026-11-23
 categories:
   - Engineering
-  - Artificial Intelligence
+  - Agentic Systems
   - Development
 tags:
   - Phantom Logic
-  - Autonomous AI
-  - Multi-Agent Systems
+  - Agentic Systems
+  - Autonomous Agents
   - Python
-  - Software Engineering
-  - Agent Orchestration
+  - PostgreSQL
+  - Ollama
+  - OpenRouter
+  - OpenCode
+  - Multi-Agent Systems
 ---
 
-# Building Phantom Logic: Engineering an Autonomous AI Software Company
+# Phantom Logic
 
-## From AI assistants to an autonomous software organization
+### Humans Guide. Agents Execute.
 
-Artificial intelligence has changed the way software is developed. AI assistants can generate code, explain complex systems, troubleshoot errors, and help developers work more efficiently.
+I've started Phantom Logic as an experiment in building agentic systems and exploring how multiple autonomous agents can work together under human guidance.
 
-But what if we could take this further?
+I'm still a beginner in this space. I'm learning as I build, experimenting with different approaches, making mistakes, fixing things, and gradually putting the pieces together.
 
-What if AI agents could work together as an organized software company, with different agents responsible for product management, development, quality assurance, and company operations?
+This blog is where I want to document that journey: what I'm building, why I'm making certain decisions, what works, and what doesn't.
 
-What if they could receive a product idea, transform it into requirements, organize development work, implement features, review code, run tests, and eventually deliver a complete software product?
+## What am I trying to build?
 
-This is the vision behind **Phantom Logic**.
+Most of us are familiar with using assistants to answer questions, generate content, or help with individual tasks.
 
-Phantom Logic is an ongoing engineering initiative to build an autonomous AI software company. Rather than creating a collection of independent AI assistants, the objective is to establish an integrated organization in which specialized agents collaborate through shared infrastructure, defined responsibilities, controlled workflows, and centralized governance.
+But what happens when we take things a step further?
 
-We are building this system incrementally, validating each component before moving toward greater autonomy.
+What if, instead of relying on one assistant to do everything, we create a system of specialized agents, each with its own responsibilities?
 
-This article documents the architecture, modules, technologies, achievements, and roadmap of Phantom Logic as of November 2026.
+For example:
 
----
+- A Product Manager agent understands requests and defines requirements.
+- A Developer agent works on implementation.
+- A Reviewer examines the implementation.
+- A QA agent tests the result.
+- An Orchestrator coordinates the different agents and manages the overall workflow.
 
-## 1. The Vision and Architecture
+Each agent has a specific role rather than trying to do everything.
 
-The central idea behind Phantom Logic is to model a software company as a coordinated system of specialized AI agents.
+The goal is to have these agents collaborate, exchange information, hand work over to one another, and collectively complete tasks.
 
-Each agent has a defined responsibility. The agents do not independently operate without constraints; they interact through shared company infrastructure and follow centrally established rules.
+But there is an important part of this idea: **human involvement never disappears.**
 
-The Orchestrator serves as the central coordination point.
+Humans provide direction, make important decisions, grant approvals where required, and retain oversight of the work. The agents handle execution within the boundaries established for them.
 
-The intended organizational structure includes:
+I'm interested in exploring how far this approach can go while keeping the system understandable, accountable, and manageable.
 
-| Agent | Primary Responsibility |
-|---|---|
-| Orchestrator | Coordinates operations, delegates responsibilities, and enforces company governance |
-| Product Manager | Understands product requests and converts them into structured requirements and development work |
-| Developer | Implements software based on approved requirements and assigned work |
-| Reviewer | Reviews implementation quality, architecture, and maintainability |
-| QA | Validates functionality, executes tests, and identifies defects |
+## How Phantom Logic is taking shape
 
-The architecture is designed to support additional specialized agents as the organization grows.
+I'm approaching this as a collection of connected modules rather than trying to build everything at once.
 
-### A centralized control plane
+Here are the main components I've been working on.
 
-An important architectural decision is to separate the company infrastructure from the individual products it develops.
+### 1. Agent Architecture and Orchestration
 
-Phantom Logic acts as the central company control plane. It manages agents, governance, Work Items, audit records, and coordination.
+The first challenge is defining the different roles within the system.
 
-Individual products are intended to have their own independent source-code repositories.
+Each agent needs a clear responsibility, a defined scope, and instructions explaining how it should perform its work.
 
-This separation allows Phantom Logic to manage multiple products without mixing their application code, development histories, or release cycles with the company's own infrastructure.
+Some of the roles I'm exploring include:
 
----
+- **Orchestrator:** Coordinates requests, delegates work, and manages interactions between agents.
+- **Product Manager:** Converts ideas into requirements and work items.
+- **Developer:** Handles implementation tasks.
+- **Reviewer:** Examines proposed changes and checks their quality.
+- **QA:** Tests completed work and identifies issues.
 
-## 2. The Modules Implemented So Far
+These aren't simply different names for assistants. The intention is to give each role a distinct purpose and establish rules for how they interact.
 
-Several foundational modules have been implemented to support the autonomous company architecture.
+The Orchestrator is particularly important because it acts as the coordination point. It needs to understand the request, determine which agent should handle it, receive the results, and decide what should happen next.
 
-### 2.1 Agent Architecture and Orchestration
+I'm also working on defining the boundaries between agents so that responsibilities don't overlap unnecessarily.
 
-The agent architecture defines how specialized agents operate and collaborate.
+### 2. Work Item Management
 
-The Orchestrator is responsible for receiving requests, understanding the work required, selecting the appropriate agent, delegating responsibilities, and collecting results.
+One of the first things I realized was that agents need a common way to understand and manage the work they're expected to perform.
 
-Specialist agents are expected to perform their assigned operations and report their actual outcomes to the Orchestrator.
+A collection of agents without a structured way to define tasks, track progress, and establish responsibilities would quickly become difficult to manage.
 
-This separation is important: an agent should be accountable for the work it performs, while the Orchestrator coordinates the overall process.
+I approached this in two parts.
 
-Agent instructions and responsibilities are maintained as part of the OpenCode integration.
+**GitHub Issues and Projects**
 
-**Technology:**
-- OpenCode — agent execution and coordination environment.
-- Markdown — agent definitions, instructions, and operational rules.
-- Python — underlying company infrastructure and business logic.
+I'm using GitHub's work management capabilities as part of the setup.
 
-The agent architecture and delegation foundation are established. Full autonomous collaboration across the entire development lifecycle remains a future validation milestone.
+This has involved more than simply creating issues. I've been configuring the structure of the work management system, including:
 
-### 2.2 Work Item Management
+- Issue types to distinguish different kinds of work.
+- Custom fields to capture additional information.
+- Project views to organize and visualize work.
+- Workflows to manage how work progresses.
+- Relationships and hierarchy between related work items.
 
-Work Item Management is one of the most substantial components implemented so far.
+The intention is to establish a consistent way of defining and organizing work before agents begin processing it.
 
-A software development organization needs a structured mechanism to define, organize, assign, track, and manage development work.
+**Phantom Logic Work Item Management**
 
-The Work Item Management subsystem provides this shared foundation.
+Alongside GitHub's capabilities, I've been developing our own Work Item Management module.
 
-It supports different types of development artifacts, including:
+This is an application-side implementation with its own models, services, business rules, relationships, state transitions, and database persistence.
 
-- Epics
-- Features
-- Requirements
-- Tasks
-- Bugs
-- Test Cases
+It provides a defined interface through which agents can create, retrieve, and manage work items.
 
-It also provides the foundation for relationships between Work Items, assignments, authorization, state transitions, and build-number tracking.
+I didn't want the agents to depend entirely on an external work management interface. Phantom Logic needs its own understanding of work items and the rules governing how they are handled.
 
-The architecture separates responsibilities into different layers:
+These are complementary parts of the design: GitHub provides work organization and tracking capabilities, while Phantom Logic implements the application-side functionality required for agent workflows.
 
-**Models:** Define the structure of Work Items and their associated data.
+### 3. Audit and Governance
 
-**Rules:** Contain business rules and validation requirements.
+This is one of the areas I consider particularly important.
 
-**Services:** Implement application-level operations.
+Giving agents the ability to perform actions is only one part of the challenge. We also need to know what they did, why they did it, and what happened as a result.
 
-**Managers:** Coordinate Work Item management functionality.
+I've therefore been developing a central audit mechanism.
 
-**Interfaces:** Provide the approved interaction points through which agents access Work Item operations.
+Important actions are reported to the Orchestrator, which is responsible for submitting them through the existing Audit Writer.
 
-A key design decision is that Work Item Management is shared company infrastructure, not an autonomous agent.
+The audit records capture information such as:
 
-Specialist agents use its interfaces instead of independently manipulating the underlying data.
+- Who requested the action?
+- Which agent performed it?
+- What action was requested?
+- Why was it performed?
+- Which resources were affected?
+- Was approval required?
+- What was the outcome?
+- How was the result verified?
 
-**Technology:**
-- Python — business logic and application services.
-- SQLAlchemy — database object-relational mapping.
-- Alembic — database schema migrations.
-- OpenCode plugins — agent-facing integration.
-- JSON — structured communication between components.
+One architectural decision I've made is that individual agents and Work Item Management should not write directly to the central audit log.
 
-The Work Item subsystem has undergone extensive testing. Its test suite previously passed 550 tests, and the broader repository test suite passed 670 tests following the repository restructuring.
+The Orchestrator remains the single point through which audit records are submitted.
 
-### 2.3 Central Audit and Governance
+This is intended to make accountability consistent across the system.
 
-Autonomous software systems need accountability.
+I also want human approval to remain part of the process wherever an action requires it. An agent should not treat its ability to perform an action as permission to do so.
 
-An organization cannot rely on agents simply reporting that they completed an operation. It needs a mechanism to record what happened, who performed the action, what resources were affected, and whether the operation succeeded.
+### 4. Database and Data Management
 
-Phantom Logic includes a central AuditWriter responsible for creating audit records.
+As the system grows, it needs a reliable way to store and retrieve information.
 
-The existing audit record structure contains twelve fields:
+I'm using **PostgreSQL** as the relational database, with **Python and SQLAlchemy** handling database interaction.
 
-1. Audit ID
-2. Timestamp
-3. Requesting party
-4. Responsible agent
-5. Action requested
-6. Purpose
-7. Affected resources
-8. Approval required
-9. Authorized by
-10. Outcome
-11. Verification
-12. Additional notes
+**Alembic** is used for database schema migrations. This allows changes to the database structure to be tracked and managed rather than making changes manually without a clear history.
 
-The Orchestrator is the sole interface to the AuditWriter.
+The database layer provides the foundation for storing work items and their relationships.
 
-Specialist agents report their operations to the Orchestrator, which submits the corresponding audit records through the approved mechanism.
+I'm also working toward keeping the different application layers separate so that business logic, database operations, and agent-facing interfaces don't become unnecessarily dependent on one another.
 
-For example, when the Product Manager creates a Feature, the creation event identifies the Product Manager as the actual actor. The Orchestrator records the event without taking credit for the specialist's operation.
+### 5. Model Infrastructure: Ollama and OpenRouter
 
-The audit architecture also accounts for failed, incomplete, cancelled, and blocked operations.
+An important part of this experiment is understanding which models to use, where to run them, and how different agents can benefit from different models.
 
-This is an important foundation for maintaining accountability as the company becomes more autonomous.
+I don't want Phantom Logic to depend entirely on cloud-hosted models and paid API services. My longer-term intention is to make the system local-first wherever practical, while retaining the flexibility to use cloud models when a task requires them.
 
-**Technology:**
-- Python — audit processing and validation.
-- JSON — structured audit input.
-- Markdown — human-readable audit storage.
-- File-system controls — protection of audit records.
+**Ollama and local models**
 
-The audit system has been implemented, and its integration with Work Item creation has now been successfully verified.
+I'm using **Ollama** to experiment with locally hosted models.
 
-### 2.4 Database Infrastructure
+Ollama makes it possible to download and run models directly on my machine and expose them through a local API. This allows applications and agent environments to communicate with locally running models without having to send every request to an external provider.
 
-The database layer provides persistent storage for company operations.
+My current local model is **Qwen3:8B**.
 
-Instead of allowing every component to implement its own database access logic, Phantom Logic uses a structured persistence architecture.
+I want to explore using local models for routine tasks such as documentation, planning, information processing, and other activities that don't necessarily require a more capable cloud model.
 
-Its main components include:
+Some of the advantages I'm interested in are:
 
-- Data models.
-- Repository abstractions.
-- Database configuration.
-- Schema migrations.
-- Database integration.
+- Running models locally on my own hardware.
+- Greater control over where data is processed.
+- Reduced dependence on external model providers.
+- Experimenting with different models without paying for every API request.
+- Having a local model infrastructure that can eventually support multiple agents.
 
-SQLAlchemy provides the object-relational mapping layer, while Alembic manages database schema changes.
+Of course, local models have their own limitations. Available memory, processing power, response speed, and model capability all influence what can realistically run on a particular machine.
 
-This separation makes it easier to evolve the underlying data structures as new company modules are introduced.
+**OpenRouter and cloud models**
 
-**Technology:**
-- Python.
-- SQLAlchemy.
-- Alembic.
-- Relational database infrastructure.
+For cloud model access, I'm using **OpenRouter**.
 
-The database and migration foundation has been established and verified as part of the repository restructuring and testing process.
+One of the useful things about OpenRouter is that it provides access to models from different providers through a common API. This makes it easier to experiment with different models without having to integrate each provider separately.
 
-### 2.5 OpenCode Plugin and Python Bridge
+The cloud model I've successfully used for orchestration is **GPT-OSS 20B**, accessed through OpenRouter.
 
-An important part of the architecture is connecting AI agents to actual company infrastructure.
+I've been using it to experiment with the Orchestrator and its ability to delegate work to specialist agents.
 
-For this purpose, Phantom Logic integrates with OpenCode through a custom Work Item plugin.
+This has been an important part of testing the multi-agent setup because orchestration involves more than generating a response. The model needs to understand the task, decide which agent should handle it, and coordinate the results.
 
-The plugin provides the agent-facing interface and invokes the Python application through a bridge.
+**The intended direction**
 
-The general execution flow is:
+The longer-term idea is to have a hybrid model infrastructure:
 
-1. An agent requests a Work Item operation.
-2. The OpenCode plugin receives the request.
-3. The plugin invokes the Python bridge.
-4. The bridge calls the Work Item application interface.
-5. The operation executes and returns its result.
-6. Relevant events are passed back to the Orchestrator.
+- Local models through Ollama for tasks that can be handled locally.
+- Cloud models through OpenRouter when additional capability is needed.
+- The flexibility to select different models for different agents and responsibilities.
 
-During integration testing, we discovered an interpreter configuration issue: the plugin was invoking the system Python interpreter instead of the project's virtual environment.
+I haven't finalized the model allocation strategy yet. I'm still experimenting with model selection, performance, and how different agents should use different models.
 
-We corrected the configuration to use the project's virtual-environment interpreter.
+I see this as an important architectural decision because the choice of model can affect the cost, speed, reliability, and overall capabilities of the system.
 
-After restarting OpenCode, the Product Manager successfully created a Feature through the plugin.
+### 6. OpenCode Integration
 
-This demonstrated that the agent integration was executing real application operations rather than merely simulating them in conversation.
+Another important part of the project is connecting the agent environment to the Python application.
 
-**Technology:**
-- OpenCode — agent execution.
-- TypeScript — custom plugin implementation.
-- Bun — plugin runtime.
-- Python — application logic and bridge.
-- JSON — structured request and response communication.
+I'm using **OpenCode** to run and coordinate the agents.
 
----
+OpenCode provides the environment in which agents can receive instructions, use available tools, interact with the codebase, and delegate work.
 
-## 3. Repository Architecture and Engineering Practices
+To connect it with Phantom Logic's backend, I've been developing a plugin using **TypeScript and Bun**.
 
-As the project grew, maintaining a clean and understandable repository structure became increasingly important.
+The plugin acts as a bridge between the agent environment and the Python application.
 
-We reorganized the original repository into a Python package-based architecture.
+One issue I encountered was that the plugin was attempting to use the system Python interpreter instead of the Python interpreter inside the project's virtual environment. As a result, it couldn't locate the Phantom Logic modules.
 
-The core application now resides under the `src/phantom_logic/` package, with separate areas for database infrastructure, Work Item Management, and auditing.
+After correcting the interpreter path and restarting OpenCode, the integration worked.
 
-Company documentation, agent instructions, plugins, and tests are maintained separately.
+It was a relatively small issue, but a useful reminder that even when the architecture looks right, the actual integration details matter.
 
-The restructuring was completed, committed, and pushed to the development branch.
+### 7. Repository and Engineering Practices
 
-Some of the engineering practices established include:
+I've also been spending time organizing the project itself.
 
-- Separation of application layers.
-- Reusable service and repository components.
-- Database migration management.
-- Automated testing.
-- Centralized company rules.
-- Controlled agent responsibilities.
-- Version control through Git.
+As the number of modules, agents, instructions, and supporting components increases, keeping everything structured becomes important.
 
-The objective is to ensure that Phantom Logic remains maintainable as more agents, products, and capabilities are introduced.
+I'm using Git and GitHub to manage the source code, track changes, and maintain the project's development history. GitHub also plays an important role in the Work Item configuration described earlier.
 
-**Technology:**
-- Python package structure.
-- Git and GitHub.
-- Alembic.
-- Automated testing infrastructure.
-- OpenCode configuration and plugins.
+The repository contains the application code, agent instructions, company-level rules, database migrations, tests, and supporting documentation.
 
----
-
-## 4. Our First Successful Integration Test
-
-One of the most important recent milestones was successfully testing the integration between the Orchestrator, Product Manager, Work Item Management, and AuditWriter.
-
-We created a controlled test to verify that a simple human request could result in an actual Work Item and a corresponding central audit record.
-
-The workflow was:
-
-**Step 1 — Request received**
-
-The Orchestrator received a request to create a Feature for testing the Work Item and audit integration.
-
-**Step 2 — Delegation**
-
-The Orchestrator delegated the operation to the Product Manager.
-
-**Step 3 — Work Item creation**
-
-The Product Manager invoked the Work Item plugin, which called the Python bridge and created the Feature.
-
-The created Work Item was:
-
-- ID: `PL-AUDIT-SMOKE-20261122-02`
-- Type: Feature
-- Initial state: Proposed
-- Created by: Product Manager
-
-**Step 4 — Event generation**
-
-Work Item Management returned a `WORK_ITEM_CREATED` event identifying the actual actor as `productmanager`.
-
-**Step 5 — Central audit submission**
-
-The Orchestrator submitted the event through the existing AuditWriter.
-
-**Step 6 — Persistence verification**
-
-We inspected the central audit log and located the generated audit record.
-
-The verified Audit ID was:
-
-`f099854d-a293-4823-adf3-1a6e88e402ff`
-
-The record was found in the designated audit log.
-
-This confirmed that the Work Item creation and central audit persistence integration were functioning.
-
-It was a relatively small test, but it demonstrated that several independently implemented components could work together to perform and record a real operation.
-
----
-
-## 5. Current Technology Stack
-
-The following table summarizes the technologies currently used or identified in the Phantom Logic architecture.
-
-| Technology | Purpose |
-|---|---|
-| Python | Core application and business logic |
-| SQLAlchemy | Object-relational mapping |
-| Alembic | Database migrations |
-| OpenCode | AI agent execution and coordination |
-| TypeScript | OpenCode plugin implementation |
-| Bun | Plugin runtime |
-| JSON | Structured inter-component communication |
-| Markdown | Documentation, agent instructions, and audit records |
-| Git | Source-code version control |
-| GitHub | Repository hosting and collaboration |
-| Automated tests | Validation of application behavior |
-
-The technology stack is intentionally modular. Additional technologies will be introduced as the architecture expands.
-
----
-
-## 6. What Comes Next? The Development Roadmap
-
-The foundational modules are in place, but the ultimate objective is to demonstrate an autonomous software development lifecycle.
-
-We are approaching this in stages.
-
-### Phase 1 — Complete Work Item Lifecycle Integration
-
-Our immediate priority is to verify the complete Work Item lifecycle.
+I'm trying to establish good engineering practices early rather than waiting until the project becomes difficult to maintain.
 
 This includes:
 
-- Retrieving existing Work Items.
-- Validating descriptions and acceptance criteria.
-- Assigning work to agents.
-- Performing authorized state transitions.
-- Recording every significant operation through the central audit mechanism.
+- Keeping modules separated by responsibility.
+- Maintaining consistent naming conventions.
+- Using Git for version control.
+- Writing automated tests.
+- Managing database changes through migrations.
+- Documenting architectural decisions and operating rules.
 
-We have successfully tested creation and audit persistence. Retrieval and the remaining lifecycle operations still need end-to-end validation.
+The intention is to make Phantom Logic easier to understand, maintain, and extend as it develops.
 
-### Phase 2 — Product Management and Requirements Engineering
+## The technology stack
 
-The Product Manager will evolve beyond creating individual Features.
+These are the main technologies I'm currently using and exploring.
 
-It should be able to transform a product idea into a structured hierarchy of development work.
+| Technology | Purpose |
+|---|---|
+| Python | Core application and backend logic |
+| PostgreSQL | Relational database |
+| SQLAlchemy | Database interaction and ORM |
+| Alembic | Database schema migrations |
+| TypeScript | OpenCode plugin development |
+| Bun | Plugin runtime and execution |
+| OpenCode | Agent execution and coordination |
+| Ollama | Running and managing local models |
+| Qwen3:8B | Current local model |
+| OpenRouter | Access to cloud-hosted models |
+| GPT-OSS 20B | Cloud model used for orchestration |
+| Git and GitHub | Source control, project hosting, Issues and Projects |
+| JSON | Structured communication between components |
+| Markdown | Agent instructions, rules, and documentation |
+| Automated testing tools | Testing application components and functionality |
 
-The intended flow is:
+The stack may evolve as the project grows. I'm more interested in getting the architecture and responsibilities right than committing to a particular technology for everything.
 
-Product Idea → Epics → Features → Requirements → Tasks → Test Cases.
+## A small but important milestone
 
-This will establish the foundation for managing complex software products.
+One of the first things I wanted to verify was whether an agent could create a work item and whether that action would be recorded in the central audit log.
 
-### Phase 3 — Autonomous Software Development
+It sounds straightforward, but it involves several components working together.
 
-The next major capability is enabling Developer agents to implement assigned work.
+The Product Manager agent needed to:
 
-The Developer should be able to:
+1. Receive the request.
+2. Use the Work Item Management interface.
+3. Create a Feature.
+4. Return the result and report the action to the Orchestrator.
+5. Allow the Orchestrator to submit the audit record.
+6. Verify that the record was actually persisted.
 
-- Understand requirements.
-- Examine the relevant product repository.
-- Plan an implementation.
-- Write and modify source code.
-- Execute automated tests.
-- Report implementation results.
-- Update Work Items through approved interfaces.
+I encountered an integration issue along the way, which turned out to be related to the Python interpreter used by the OpenCode plugin.
 
-This will be a major milestone because it moves Phantom Logic from work coordination toward actual autonomous software production.
+After fixing it, I successfully created a test Feature through the Product Manager agent.
 
-### Phase 4 — Independent Code Review and QA
+The operation returned a Work Item ID, identified the Product Manager as the actor, and reported a successful creation event.
 
-Development and validation should be performed by separate agents.
+I then inspected the central audit log and confirmed that the corresponding audit record had been written.
 
-The Reviewer will evaluate architecture, implementation quality, maintainability, and coding standards.
+This was a useful milestone because it demonstrated that the agent environment, plugin, Python backend, Work Item Management, Orchestrator, and Audit Writer could work together for this operation.
 
-QA will validate functionality against acceptance criteria, execute tests, identify defects, and verify corrections.
+It is only one part of the larger system. The complete development workflow, including implementation, independent review, and QA, is still ahead.
 
-The separation is important because software should not be considered complete merely because the Developer reports success.
+But having one integration path working end to end is encouraging.
 
-### Phase 5 — Product Registry and Repository Management
+## What's next?
 
-Phantom Logic is intended to manage multiple independent software products.
+There is a long way to go. I don't want to rush into building more agents before the existing foundations are reliable.
 
-A Product Registry will provide a centralized record of:
+Here is how I see the next stages.
 
-- Product identity and description.
-- Product ownership.
-- Repository information.
-- Development branches.
-- Current build numbers.
-- Product lifecycle status.
-- Associated Epics and Features.
+### Phase 1: Complete Work Item Management
 
-Each product will have its own repository, while Phantom Logic will coordinate development across them.
+The immediate focus is to verify that agents can retrieve, update, assign, and transition work items through the approved interfaces.
 
-### Phase 6 — Company Workflow Automation
+Every significant operation should be reported and audited appropriately.
 
-Once individual agent interactions are reliable, we will expand orchestration into a more comprehensive workflow system.
+I also want to make sure that the Work Item definitions, application-side implementation, and agent instructions remain consistent.
 
-This will include:
+### Phase 2: Establish the Complete Development Workflow
 
-- Automated agent delegation.
-- Work Item dependency management.
-- Approval gates.
-- Failure handling.
-- Escalations.
-- Retry policies.
-- Audit verification.
-- Human intervention when necessary.
+I want to move beyond creating features and establish a complete workflow:
 
-### Phase 7 — Release, Deployment, and Operations
+- Product Manager defines the requirements.
+- Developer receives and implements the work.
+- Reviewer examines the implementation.
+- QA validates the result.
+- Orchestrator coordinates the process and records important outcomes.
 
-The longer-term objective is to extend autonomy beyond development.
+The workflow should also handle failures, rework, and situations where human intervention is necessary.
 
-Phantom Logic should eventually coordinate:
+### Phase 3: Introduce Independent Review and Quality Assurance
 
-- Release preparation.
-- Deployment approvals.
-- Build management.
-- Deployment workflows.
-- Monitoring.
-- Maintenance.
-- Defect resolution.
+I don't want the same agent that produces work to be the only one deciding whether that work is correct.
 
-This will bring the company closer to managing the complete software product lifecycle.
+Independent review and testing should be part of the process.
 
----
+The goal is to make quality checks a normal part of development rather than an afterthought.
 
-## 7. The Long-Term Vision
+### Phase 4: Build Product Management Infrastructure
 
-Phantom Logic is not intended to be another AI coding assistant.
+Eventually, I want Phantom Logic to manage multiple products and projects.
 
-The goal is to build an autonomous software organization with the infrastructure and operational discipline of a real software company.
+That will require a way to maintain product information, requirements, development plans, versions, and release history.
 
-It should be capable of managing multiple products, coordinating specialized agents, maintaining development workflows, enforcing governance, and delivering software through a structured lifecycle.
+Each product should have its own development repository while Phantom Logic provides the coordination and management infrastructure.
 
-The foundation is being built with an emphasis on modularity, accountability, and verifiable execution.
+### Phase 5: Expand Local Model Usage
 
-We are not assuming that autonomy can be achieved simply by connecting multiple AI models. It requires reliable infrastructure, well-defined responsibilities, controlled interactions, persistent state, and independent verification.
+I want to experiment with running more of the system locally.
 
-Every milestone is an opportunity to validate that architecture.
+This will involve testing different models, understanding their strengths and limitations, and deciding which responsibilities can be handled reliably by local models.
 
-**We have established the foundation. Now the work is to make the company operate.**
+The longer-term goal is to reduce unnecessary dependence on cloud services without compromising the quality of the work.
 
-This is the beginning of Phantom Logic.
+Cloud models will still have a place when their capabilities justify using them.
 
-*Follow this development journal for future updates as we build, test, and evolve the autonomous software company.*
+### Phase 6: Workflow Automation
 
----
+Once the individual components are reliable, I want to explore more complex workflows.
+
+Agents should be able to identify the next appropriate action, coordinate with other agents, and continue working within their defined responsibilities.
+
+Human approval and intervention will remain important boundaries.
+
+### Phase 7: Release and Operations
+
+The longer-term goal is to explore how agents can assist with the entire product lifecycle, from initial ideas through development, testing, release, and ongoing maintenance.
+
+This is still a future direction, not something I've implemented yet.
+
+## Why I'm documenting all this
+
+I'm not writing this as someone who has already figured everything out.
+
+I'm learning about agentic systems by actually trying to build one.
+
+Some things will work. Some won't. There will be architectural decisions that need to be revisited, integrations that break, and ideas that turn out to be more complicated than expected.
+
+I think documenting those experiences is valuable.
+
+I also want to be able to look back at where the project started, understand why certain decisions were made, and see how the architecture evolves over time.
+
+If you're also exploring autonomous agents, multi-agent systems, or similar ideas, I hope some of these experiences will be useful to you.
+
+For now, Phantom Logic is a work in progress.
+
+There is a lot left to learn and build.
+
+**Humans Guide. Agents Execute.**
