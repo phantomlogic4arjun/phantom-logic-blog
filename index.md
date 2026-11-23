@@ -22,11 +22,11 @@ tags:
 
 ### Humans Guide. Agents Execute.
 
-I've started Phantom Logic as an experiment in building agentic systems and exploring how multiple autonomous agents can work together under human guidance.
+This is an experiment in building agentic systems and exploring how multiple autonomous agents can work together under human guidance.
 
-I'm still a beginner in this space. I'm learning as I build, experimenting with different approaches, making mistakes, fixing things, and gradually putting the pieces together.
+I'm a beginner in this space, learning as I build, experimenting with different approaches, making mistakes, fixing things, and gradually putting the pieces together.
 
-This blog is where I want to document that journey: what I'm building, why I'm making certain decisions, what works, and what doesn't.
+This is where I document that journey: what I'm building, why I'm making certain decisions, what works, and what doesn't.
 
 ## What am I trying to build?
 
@@ -68,10 +68,10 @@ Each agent needs a clear responsibility, a defined scope, and instructions expla
 
 Some of the roles I'm exploring include:
 
-- **Orchestrator:** Coordinates requests, delegates work, and manages interactions between agents.
+- **Orchestrator:** Coordinates requests, delegates work, and manages interactions between agents. Consider this the Chief Doer
 - **Product Manager:** Converts ideas into requirements and work items.
 - **Developer:** Handles implementation tasks.
-- **Reviewer:** Examines proposed changes and checks their quality.
+- **Reviewer:** Examines proposed changes and checks their quality. Mostly oversees the work of the Developer.
 - **QA:** Tests completed work and identifies issues.
 
 These aren't simply different names for assistants. The intention is to give each role a distinct purpose and establish rules for how they interact.
@@ -92,7 +92,7 @@ I approached this in two parts.
 
 I'm using GitHub's work management capabilities as part of the setup.
 
-This has involved more than simply creating issues. I've been configuring the structure of the work management system, including:
+This has involved more than simply creating issues. I've been configuring the structure of the work management system, taking some inspiration from the work item types and hierarchy in Azure DevOps, which I'm more accustomed to.
 
 - Issue types to distinguish different kinds of work.
 - Custom fields to capture additional information.
@@ -167,7 +167,7 @@ I'm using **Ollama** to experiment with locally hosted models.
 
 Ollama makes it possible to download and run models directly on my machine and expose them through a local API. This allows applications and agent environments to communicate with locally running models without having to send every request to an external provider.
 
-My current local model is **Qwen3:8B**.
+My current local model is **Qwen3:8B**. I must admit that it struggles quite often, and tends to hit its context limits, especially when dealing with more involved tasks.
 
 I want to explore using local models for routine tasks such as documentation, planning, information processing, and other activities that don't necessarily require a more capable cloud model.
 
@@ -225,26 +225,13 @@ It was a relatively small issue, but a useful reminder that even when the archit
 
 ### 7. Repository and Engineering Practices
 
-I've also been spending time organizing the project itself.
+I've been spending time organizing the project itself. Python isn't my primary language, so I'm still getting familiar with its conventions and best practices. At the same time, I'm learning how agentic systems are structured and how their different components fit together. It's been a learning experience on both the technology and architectural sides.
 
 As the number of modules, agents, instructions, and supporting components increases, keeping everything structured becomes important.
 
-I'm using Git and GitHub to manage the source code, track changes, and maintain the project's development history. GitHub also plays an important role in the Work Item configuration described earlier.
+The repository contains the application code, agent instructions, company-level rules, database migrations, tests, and supporting documentation. I am still not sure if this is the way to go.
 
-The repository contains the application code, agent instructions, company-level rules, database migrations, tests, and supporting documentation.
-
-I'm trying to establish good engineering practices early rather than waiting until the project becomes difficult to maintain.
-
-This includes:
-
-- Keeping modules separated by responsibility.
-- Maintaining consistent naming conventions.
-- Using Git for version control.
-- Writing automated tests.
-- Managing database changes through migrations.
-- Documenting architectural decisions and operating rules.
-
-The intention is to make Phantom Logic easier to understand, maintain, and extend as it develops.
+The intention is to make Phantom Logic easier to understand, maintain, and extend as it evolves.
 
 ## The technology stack
 
@@ -383,4 +370,5 @@ For now, Phantom Logic is a work in progress.
 
 There is a lot left to learn and build.
 
+Whatever these systems become in the future, I believe human judgment, direction, and responsibility must remain at the centre. The goal isn't to replace the human element, but to build systems where people and agents work together.
 **Humans Guide. Agents Execute.**
